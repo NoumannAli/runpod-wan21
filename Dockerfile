@@ -1,7 +1,9 @@
 FROM runpod/worker-comfyui:5.8.6-base
 
-WORKDIR /comfyui
+# Upgrade PyTorch with CUDA 12.4 support (works on all GPUs including L40S/A6000)
+RUN pip install --force-reinstall torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
 
+WORKDIR /comfyui
 RUN mkdir -p models/unet models/clip models/vae
 
 # WAN 2.1 T2V UNET (~14GB)
